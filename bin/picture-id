@@ -15,23 +15,35 @@ var configOptions = [
   {
     name: 'db',
     alias: 'b',
-    input: '[file]',
-    describe: 'Where to save the file that keeps track of the SSID.',
-    default: '~/.picture-id.db'
+    input: '<file>',
+    describe: 'Where to save the file that keeps track of the SSID. The default is "' + pictureID.defaults.db + '".',
+    default: pictureID.defaults.db
   },
   {
     name: 'directory',
     alias: 'd',
-    input: '[directory]',
-    describe: 'Where to save the images.',
-    default: '~/Pictures/picture-id'
+    input: '<directory>',
+    describe: 'Where to save the images. The default is "' + pictureID.defaults.directory + '".',
+    default: pictureID.defaults.directory
   },
   {
-    name: 'filenme',
+    name: 'filename',
+    alias: 'n',
+    input: '<filename>',
+    describe: 'The name of the file to create with values {{YYYY}}, {{MM}}, {{DD}}, {{HH}}, {{II}}, {{SS}}, {{SSID}}. Valid image types are JPEG, TIFF, PNG, GIF, BMP. The default is "' + pictureID.defaults.filename + '".',
+    default: pictureID.defaults.filename
+  },
+  {
+    name: 'warmup',
+    alias: 'w',
+    input: '<n>',
+    describe: 'The number of seconds to warmup the camera; the default camera needs a couple seconds otherwise the picture will be very dark. The default is "' + pictureID.defaults.warmup + '".',
+    default: pictureID.defaults.warmup
+  },
+  {
+    name: 'force',
     alias: 'f',
-    input: '[filename]',
-    describe: 'The name of the file to create with values {{YYYY}}, {{MM}}, {{DD}}, {{HH}}, {{MM}}, {{SS}}, {{SSID}}',
-    default: 'picture-id-{{YYYY}}{{MM}}{{DD}}-{{SSID}}'
+    describe: 'Forces picture to be taken regardless of a change of SSID.'
   }
 ];
 
@@ -42,7 +54,7 @@ commandline
 // Add config
 configOptions.forEach(function(o) {
   commandline.option(
-    '-' + o.alias + ', --' + o.name + ' ' + o.input,
+    '-' + o.alias + ', --' + o.name + ((o.input) ? ' ' + o.input : ''),
     o.describe,
     o.check,
     o.default
@@ -53,4 +65,11 @@ configOptions.forEach(function(o) {
 commandline.parse(process.argv);
 
 // Run picture id command
-pictureID();
+pictureID({
+  db: commandline.db,
+  directory: commandline.directory,
+  filename: commandline.filename,
+  warmup: (commandline.warmup || commandline.warmup === '0') ?
+    parseInt(commandline.warmup, 10) : commandline.warmup,
+  force: !!commandline.force
+});

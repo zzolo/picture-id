@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Takes a picture when your SSID changes.",
   "main": "index.js",
+  "bin": {
+    "picture-id": "bin/picture-id"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
