@@ -1,0 +1,56 @@
+#! /usr/bin/env node
+'use strict';
+
+/**
+ * A wrapper around the library.
+ */
+
+var pictureID = require('../lib/picture-id');
+var packageJSON = require('../package.json');
+var commandline = require('commander');
+
+// Configuration for picture-id module so that we can build the command
+// line options for these
+var configOptions = [
+  {
+    name: 'db',
+    alias: 'b',
+    input: '[file]',
+    describe: 'Where to save the file that keeps track of the SSID.',
+    default: '~/.picture-id.db'
+  },
+  {
+    name: 'directory',
+    alias: 'd',
+    input: '[directory]',
+    describe: 'Where to save the images.',
+    default: '~/Pictures/picture-id'
+  },
+  {
+    name: 'filenme',
+    alias: 'f',
+    input: '[filename]',
+    describe: 'The name of the file to create with values {{YYYY}}, {{MM}}, {{DD}}, {{HH}}, {{MM}}, {{SS}}, {{SSID}}',
+    default: 'picture-id-{{YYYY}}{{MM}}{{DD}}-{{SSID}}'
+  }
+];
+
+// Set up global command line options
+commandline
+  .version(packageJSON.version);
+
+// Add config
+configOptions.forEach(function(o) {
+  commandline.option(
+    '-' + o.alias + ', --' + o.name + ' ' + o.input,
+    o.describe,
+    o.check,
+    o.default
+  );
+});
+
+// Parse options
+commandline.parse(process.argv);
+
+// Run picture id command
+pictureID();

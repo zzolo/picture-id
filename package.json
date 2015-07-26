@@ -1,0 +1,25 @@
+{
+  "name": "picture-id",
+  "version": "0.0.1",
+  "description": "Takes a picture when your SSID changes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzolo/picture-id.git"
+  },
+  "author": "Alan Palazzolo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zzolo/picture-id/issues"
+  },
+  "homepage": "https://github.com/zzolo/picture-id#readme",
+  "dependencies": {
+    "commander": "^2.8.1",
+    "lodash": "^3.10.0",
+    "mkdirp": "^0.5.1",
+    "tilde-expansion": "0.0.0"
+  }
+}
