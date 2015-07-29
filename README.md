@@ -10,7 +10,7 @@ Make sure [Homebrew](http://brew.sh/) and [Node](https://nodejs.org/) are instal
 
 * `brew install imagesnap`
 * `npm install picture-id -g`
-* Add a line to your crontab.  Optional, but kind of pointless without: `(crontab -l ; echo "*/10 * * * * picture-id") | crontab -`
+* Add a line to your crontab.  Optional, but kind of pointless without: `(crontab -l ; echo '*/10 * * * * PATH=/usr/local/bin:/usr/local/sbin:$PATH && picture-id') | crontab -`
 
 ## Use
 
