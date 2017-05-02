@@ -1,6 +1,6 @@
 {
   "name": "picture-id",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Takes a picture when your SSID changes.",
   "main": "index.js",
   "bin": {
