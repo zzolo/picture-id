@@ -11,12 +11,14 @@ var commandline = require('commander');
 
 // Configuration for picture-id module so that we can build the command
 // line options for these
+var spacing = '\n                               ';
 var configOptions = [
   {
     name: 'db',
     alias: 'b',
     input: '<file>',
-    describe: 'Where to save the file that keeps track of the SSID. The default is "' + pictureID.defaults.db + '".',
+    describe: 'Where to save the file that keeps track of the SSID. The ' +
+      spacing + 'default is "' + pictureID.defaults.db + '".',
     default: pictureID.defaults.db
   },
   {
@@ -30,20 +32,31 @@ var configOptions = [
     name: 'filename',
     alias: 'n',
     input: '<filename>',
-    describe: 'The name of the file to create with values {{YYYY}}, {{MM}}, {{DD}}, {{HH}}, {{II}}, {{SS}}, {{SSID}}. Valid image types are JPEG, TIFF, PNG, GIF, BMP. The default is "' + pictureID.defaults.filename + '".',
+    describe: 'The name of the file to create with values ' +
+      spacing + '{{YYYY}}, {{MM}}, {{DD}}, {{HH}}, {{II}}, {{SS}}, {{SSID}}. ' +
+      spacing + 'Valid image types are JPEG, TIFF, PNG, GIF, BMP. The ' +
+      spacing + 'default is "' + pictureID.defaults.filename + '".',
     default: pictureID.defaults.filename
   },
   {
     name: 'warmup',
     alias: 'w',
     input: '<n>',
-    describe: 'The number of seconds to warmup the camera; the default camera needs a couple seconds otherwise the picture will be very dark. The default is "' + pictureID.defaults.warmup + '".',
+    describe: 'The number of seconds to warmup the camera; the default camera ' +
+      spacing + 'needs a couple seconds otherwise the picture will be very ' +
+      spacing + 'dark. The default is "' + pictureID.defaults.warmup + '".',
     default: pictureID.defaults.warmup
   },
   {
     name: 'force',
     alias: 'f',
     describe: 'Forces picture to be taken regardless of a change of SSID.'
+  },
+  {
+    name: 'no-location',
+    alias: 'L',
+    describe: 'Do not attempt to add location to image. Location information ' +
+      spacing + 'is only added to .jpg files.'
   }
 ];
 
@@ -71,5 +84,6 @@ pictureID({
   filename: commandline.filename,
   warmup: (commandline.warmup || commandline.warmup === '0') ?
     parseInt(commandline.warmup, 10) : commandline.warmup,
-  force: !!commandline.force
+  force: !!commandline.force,
+  location: !!commandline.location
 });

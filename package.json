@@ -23,6 +23,7 @@
     "commander": "^2.8.1",
     "lodash": "^3.10.0",
     "mkdirp": "^0.5.1",
+    "piexifjs": "^1.0.3",
     "tilde-expansion": "0.0.0"
   }
 }
